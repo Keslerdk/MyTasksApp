@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widget.MyTaskApp.TextView" parent="Widget.MaterialComponents.TextView">
+        <item name="color">@color/oxford_blue</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
+        <item name="android:fontFamily">@font/poppins_light</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>
