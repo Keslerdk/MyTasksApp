@@ -19,11 +19,11 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
 //        setupActionBarWithNavController(navController)
-//        setSupportActionBar(findViewById(R.id.toolbar))
+
 
     }
 
-//    override fun onSupportNavigateUp(): Boolean {
-//        return super.onSupportNavigateUp() || navController.navigateUp()
-//    }
+    override fun onSupportNavigateUp(): Boolean {
+        return super.onSupportNavigateUp() || navController.navigateUp()
+    }
 }
