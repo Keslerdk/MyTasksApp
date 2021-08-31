@@ -39,7 +39,6 @@ class CalendarFragment : Fragment() {
 
         }
 
-
         viewModel.allTasks.observe(viewLifecycleOwner) {
             binding.task.text = it[0].date
         }

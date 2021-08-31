@@ -7,4 +7,16 @@
         <item name="android:fontFamily">@font/poppins_light</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="Widget.MyTasksApp.MaterialDatePicker" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="materialCalendarHeaderToggleButton">
+            @style/Widget.AppTheme.MaterialCalendar.HeaderToggleButton
+        </item>
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorOnPrimary">@color/white</item>
+    </style>
+
+    <style name="Widget.AppTheme.MaterialCalendar.HeaderToggleButton" parent="Widget.MaterialComponents.MaterialCalendar.HeaderToggleButton">
+        <item name="android:visibility">gone</item>
+    </style>
 </resources>
