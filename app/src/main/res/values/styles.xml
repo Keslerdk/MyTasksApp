@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    //TextView
+
     <style name="Widget.MyTaskApp.TextView" parent="Widget.MaterialComponents.TextView">
         <item name="color">@color/oxford_blue</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
         <item name="android:fontFamily">@font/poppins_light</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    //Material Datepicker
 
     <style name="Widget.MyTasksApp.MaterialDatePicker" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
         <item name="materialCalendarHeaderToggleButton">
@@ -18,5 +22,22 @@
 
     <style name="Widget.AppTheme.MaterialCalendar.HeaderToggleButton" parent="Widget.MaterialComponents.MaterialCalendar.HeaderToggleButton">
         <item name="android:visibility">gone</item>
+    </style>
+
+    //EditText
+
+    <style name="Widget.MyTaskApp.EditText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/oxford_blue</item>
+        <item name="hintTextColor">@color/oxford_blue</item>
+        <!--    <item name="colorError">@color/shrine_red</item>-->
+        <!--    <item name="textAppearanceSubtitle1">@style/TextAppearance.App.Subtitle1</item>-->
+        <item name="textAppearanceCaption">@style/TextAppearance.App.Caption</item>
+        <!--    <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>-->
+    </style>
+
+
+    <style name="TextAppearance.App.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="fontFamily">@font/poppins_light</item>
+        <item name="android:fontFamily">@font/poppins_light</item>
     </style>
 </resources>
