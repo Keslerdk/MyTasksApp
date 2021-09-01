@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.mytasksapp.databinding.FragmentCreateNewTaskBinding
@@ -51,9 +52,22 @@ class CreateNewTaskFragment : Fragment() {
 
         binding.editDateField.setOnKeyListener { v, keyCode, event -> handleKeyEvent(v, keyCode) }
 
-        viewModel.date.observe(viewLifecycleOwner) {
-            binding.editDateField.setText(viewModel.localDateToString())
+        /**
+         * if text dont matches regex set error else save it
+         */
+        binding.editDateField.addTextChangedListener {
+            if (!viewModel.isEntryDateValid(it.toString())) {
+                binding.editDateLayout.isErrorEnabled = true
+                binding.editDateLayout.error = "ДД.ММ.ГГГГ"
+            } else {
+                binding.editDateLayout.isErrorEnabled = false
+                viewModel.stringToLocalDate(it.toString())
+            }
         }
+
+//        viewModel.date.observe(viewLifecycleOwner) {
+//            binding.editDateField.setText(viewModel.localDateToString())
+//        }
 
     }
 
@@ -62,17 +76,24 @@ class CreateNewTaskFragment : Fragment() {
             CalendarConstraints.Builder()
                 .setValidator(DateValidatorPointForward.now())
 
-        val datePicker = MaterialDatePicker.Builder.datePicker()
+        val builder = MaterialDatePicker.Builder.datePicker()
             .setTitleText("Select Date")
             .setTheme(R.style.Widget_MyTasksApp_MaterialDatePicker)
-            //ToDO handle null exception
-            .setSelection(viewModel.fromLocalDateToMilliSeconds())
             .setCalendarConstraints(constraintsBuilder.build())
-            .build()
+
+        // if viewModel.date is not empty set selection
+        try {
+            builder.setSelection(viewModel.fromLocalDateToMilliSeconds())
+        } catch (e: Exception) {}
+
+        val datePicker = builder.build()
+
 
         //set result in view model
         datePicker.addOnPositiveButtonClickListener {
+            // convert date and set it to edit text
             viewModel.fromMilliSecondsToLocalDate(it)
+            binding.editDateField.setText(viewModel.localDateToString())
         }
 
         datePicker.show(requireFragmentManager(), "tag")
@@ -80,7 +101,7 @@ class CreateNewTaskFragment : Fragment() {
     }
 
     /**
-     * when enter in clicked hide keybord and save date
+     * when enter in clicked hide keybord
      */
     private fun handleKeyEvent(view: View, keyCode: Int): Boolean {
 
@@ -88,9 +109,6 @@ class CreateNewTaskFragment : Fragment() {
             val inputMethodManager =
                 activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-
-            //ToDo set errors
-            viewModel.stringToLocalDate(binding.editDateField.text.toString())
             return true
         }
         return false
@@ -99,6 +117,5 @@ class CreateNewTaskFragment : Fragment() {
     companion object {
         private const val TAG = "CreateNewTaskFragment"
     }
-
 
 }

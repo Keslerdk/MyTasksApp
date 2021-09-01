@@ -44,9 +44,6 @@ class CalendarViewModel(private val taskDao: TaskDao) : ViewModel() {
         insertTask(getNewtaskEntery(title, date, startTime, endTime, description, category))
     }
 
-
-
-
 }
 
 class CalendarViewModelFactory(private val taskDao: TaskDao) : ViewModelProvider.Factory {
