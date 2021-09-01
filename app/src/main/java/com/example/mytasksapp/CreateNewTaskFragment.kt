@@ -11,11 +11,15 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.mytasksapp.databinding.FragmentCreateNewTaskBinding
-import com.example.mytasksapp.model.CalendarViewModel
-import com.example.mytasksapp.model.CalendarViewModelFactory
+import com.example.mytasksapp.model.NewTaskViewModel
+import com.example.mytasksapp.model.NewTaskViewModelFactory
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
+import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.LocalTime
+import org.threeten.bp.ZoneId
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -25,8 +29,8 @@ class CreateNewTaskFragment : Fragment() {
     private var _binding: FragmentCreateNewTaskBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: CalendarViewModel by activityViewModels {
-        CalendarViewModelFactory((activity?.application as MyTaskApplication).database.taskDao())
+    private val viewModel: NewTaskViewModel by activityViewModels {
+        NewTaskViewModelFactory((activity?.application as MyTaskApplication).database.taskDao())
     }
 
     override fun onCreateView(
@@ -46,8 +50,9 @@ class CreateNewTaskFragment : Fragment() {
         }
 
         binding.editDateField.setOnKeyListener { v, keyCode, event -> handleKeyEvent(v, keyCode) }
+
         viewModel.date.observe(viewLifecycleOwner) {
-            binding.editDateField.setText(it.toString())
+            binding.editDateField.setText(viewModel.localDateToString())
         }
 
     }
@@ -57,45 +62,21 @@ class CreateNewTaskFragment : Fragment() {
             CalendarConstraints.Builder()
                 .setValidator(DateValidatorPointForward.now())
 
-        val f = SimpleDateFormat("dd.MM.yyyy")
-
-        Log.d(TAG, "showDatePiker: ${viewModel.date.value}")
-
-        //Todo wrong parsing
-        val d = f.parse(viewModel.date.value)
-        val milliseconds = d.time
-
-
         val datePicker = MaterialDatePicker.Builder.datePicker()
-            .setTitleText("Select date")
+            .setTitleText("Select Date")
             .setTheme(R.style.Widget_MyTasksApp_MaterialDatePicker)
-                //ToDO handle null exception
-            .setSelection(milliseconds)
+            //ToDO handle null exception
+            .setSelection(viewModel.fromLocalDateToMilliSeconds())
             .setCalendarConstraints(constraintsBuilder.build())
             .build()
 
-
+        //set result in view model
         datePicker.addOnPositiveButtonClickListener {
-            getDatePickerResult(it)
+            viewModel.fromMilliSecondsToLocalDate(it)
         }
 
         datePicker.show(requireFragmentManager(), "tag")
 
-    }
-    /**
-     * get date from calendar and formate it to string
-     */
-    private fun getDatePickerResult(date: Long) {
-        val calendar: Calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
-        calendar.setTimeInMillis(date);
-
-        val format = SimpleDateFormat("dd.MM.yyyy")
-        val formatted: String = format.format(calendar.getTime())
-        Log.d(TAG, "showDatePiker: ${formatted}")
-
-        viewModel.setDate(formatted)
-
-//        binding.editDateField.setText(formatted)
     }
 
     /**
@@ -109,7 +90,7 @@ class CreateNewTaskFragment : Fragment() {
             inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 
             //ToDo set errors
-            viewModel.setDate(binding.editDateField.text.toString())
+            viewModel.stringToLocalDate(binding.editDateField.text.toString())
             return true
         }
         return false

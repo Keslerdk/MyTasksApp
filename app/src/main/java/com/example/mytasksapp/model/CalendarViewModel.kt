@@ -1,16 +1,13 @@
 package com.example.mytasksapp.model
 
-import android.content.ClipData
 import androidx.lifecycle.*
-import androidx.room.ColumnInfo
 import com.example.mytasksapp.data.Task
 import com.example.mytasksapp.data.TaskDao
 import kotlinx.coroutines.launch
 
 class CalendarViewModel(private val taskDao: TaskDao) : ViewModel() {
 
-    private var _date = MutableLiveData<String>()
-    val date : LiveData<String> = _date
+
 
     val allTasks: LiveData<List<Task>> = taskDao.getTasks().asLiveData()
     lateinit var task: Task
@@ -47,9 +44,7 @@ class CalendarViewModel(private val taskDao: TaskDao) : ViewModel() {
         insertTask(getNewtaskEntery(title, date, startTime, endTime, description, category))
     }
 
-    fun setDate(date:String) {
-        _date.value = date
-    }
+
 
 
 }
