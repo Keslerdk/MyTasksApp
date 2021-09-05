@@ -12,6 +12,7 @@ data class Task (
     val title: String,
     @ColumnInfo(name = "date")
     val date: String,
+    @Nullable
     @ColumnInfo(name = "start_time")
     val startTime: String,
     @Nullable
@@ -20,7 +21,6 @@ data class Task (
     @Nullable
     @ColumnInfo(name = "description")
     val description: String,
-    @Nullable
     @ColumnInfo(name = "category")
     val category: String
 )

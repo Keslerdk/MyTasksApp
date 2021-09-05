@@ -10,39 +10,7 @@ class CalendarViewModel(private val taskDao: TaskDao) : ViewModel() {
 
 
     val allTasks: LiveData<List<Task>> = taskDao.getTasks().asLiveData()
-    lateinit var task: Task
 
-    private fun insertTask(task: Task) {
-        viewModelScope.launch {
-            taskDao.insert(task)
-        }
-    }
-
-    private fun getNewtaskEntery(
-        title: String,
-        date: String,
-        startTime: String,
-        endTime: String,
-        description: String,
-        category: String
-    ) : Task {
-        return Task(
-            title = title,
-            date = date, startTime = startTime,
-            endTime = endTime,
-            description = description,
-            category = category
-        )
-    }
-
-    fun addNewItem(title: String,
-                   date: String,
-                   startTime: String,
-                   endTime: String,
-                   description: String,
-                   category: String) {
-        insertTask(getNewtaskEntery(title, date, startTime, endTime, description, category))
-    }
 
 }
 

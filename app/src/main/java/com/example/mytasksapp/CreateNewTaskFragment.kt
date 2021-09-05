@@ -11,9 +11,11 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
 import com.example.mytasksapp.databinding.FragmentCreateNewTaskBinding
 import com.example.mytasksapp.model.NewTaskViewModel
 import com.example.mytasksapp.model.NewTaskViewModelFactory
+import com.google.android.material.chip.ChipGroup
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -99,6 +101,30 @@ class CreateNewTaskFragment : Fragment() {
         binding.endTimeField.setOnClickListener {
             showEndTimePicker()
         }
+
+        /**
+         * add new task to database and navigate up
+         */
+        binding.createNewTaskBtn.setOnClickListener {
+            viewModel.addNewItem(
+                binding.editTitleField.text.toString(),
+                viewModel.localDateToString(),
+                binding.startTimeField.text.toString(),
+                binding.endTimeField.text.toString(),
+                binding.descriptionField.text.toString(),
+                "Sport App"
+            )
+            view.findNavController().navigateUp()
+        }
+
+//        binding.chipGroup.setOnCheckedChangeListener { group, checkedId ->  }
+//        binding.chipGroup.
+
+        val selectedChipId = binding.chipGroup.checkedChipId
+        binding.bankingAppChip.setChipBackgroundColorResource(R.color.pink)
+//        val selectedChip = view.findViewById<View>(selectedChipId)
+//        selectedChip.setChipBackgroundColorResource(R.color.pink)
+//        selectedChip.setBackgroundColor(resources.getColor(R.color.pink))
 
     }
 
