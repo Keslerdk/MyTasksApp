@@ -46,7 +46,7 @@
                     app:layout_constraintVertical_bias="0" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/editText"
+                    android:id="@+id/edit_title_layout"
                     style="@style/Widget.MyTaskApp.EditText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -62,6 +62,7 @@
                     app:layout_constraintVertical_bias="0">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_title_field"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -80,7 +81,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/calendar_fab"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editText">
+                    app:layout_constraintTop_toBottomOf="@+id/edit_title_layout">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_date_field"
@@ -93,10 +94,10 @@
                     android:id="@+id/calendar_fab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
                     android:layout_marginEnd="16dp"
                     android:backgroundTint="@color/green"
                     android:src="@drawable/ic_calendar"
-                    app:layout_constraintBottom_toBottomOf="@+id/edit_date_layout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/edit_date_layout"
                     app:tint="@null" />
@@ -111,8 +112,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayout2"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:id="@+id/start_time_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -120,20 +121,22 @@
                     android:layout_marginEnd="16dp"
                     android:hint="Start Time"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/textInputLayout3"
+                    app:layout_constraintEnd_toStartOf="@+id/end_time_layout"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0">
 
-                    <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/start_time_field"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:inputType="none" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayout3"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:id="@+id/end_time_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
@@ -141,13 +144,15 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/textInputLayout2"
-                    app:layout_constraintTop_toTopOf="@+id/textInputLayout2"
+                    app:layout_constraintStart_toEndOf="@+id/start_time_layout"
+                    app:layout_constraintTop_toTopOf="@+id/start_time_layout"
                     app:layout_constraintVertical_bias="0">
 
-                    <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/end_time_field"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:inputType="none" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -161,7 +166,7 @@
                     android:hint="Description"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
+                    app:layout_constraintTop_toBottomOf="@+id/start_time_layout">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -253,6 +258,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/sport_app_btn" />
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/create_new_task_btn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -263,6 +269,7 @@
                     android:text="Create new task"
                     android:textColor="@color/white"
                     app:cornerRadius="50dp"
+                    android:clickable="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

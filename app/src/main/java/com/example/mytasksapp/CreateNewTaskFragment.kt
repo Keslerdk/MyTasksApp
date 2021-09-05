@@ -1,8 +1,8 @@
 package com.example.mytasksapp
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -17,12 +17,8 @@ import com.example.mytasksapp.model.NewTaskViewModelFactory
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
-import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalDateTime
-import org.threeten.bp.LocalTime
-import org.threeten.bp.ZoneId
-import java.text.SimpleDateFormat
-import java.util.*
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 
 
 class CreateNewTaskFragment : Fragment() {
@@ -38,7 +34,7 @@ class CreateNewTaskFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentCreateNewTaskBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -50,7 +46,7 @@ class CreateNewTaskFragment : Fragment() {
             showDatePiker()
         }
 
-        binding.editDateField.setOnKeyListener { v, keyCode, event -> handleKeyEvent(v, keyCode) }
+        binding.editDateField.setOnKeyListener { v, keyCode, _ -> handleKeyEvent(v, keyCode) }
 
         /**
          * if text dont matches regex set error else save it
@@ -59,15 +55,50 @@ class CreateNewTaskFragment : Fragment() {
             if (!viewModel.isEntryDateValid(it.toString())) {
                 binding.editDateLayout.isErrorEnabled = true
                 binding.editDateLayout.error = "ДД.ММ.ГГГГ"
+                //set button unclickable
+                binding.createNewTaskBtn.isClickable = false
             } else {
                 binding.editDateLayout.isErrorEnabled = false
                 viewModel.stringToLocalDate(it.toString())
+                binding.createNewTaskBtn.isClickable = true
             }
         }
 
-//        viewModel.date.observe(viewLifecycleOwner) {
-//            binding.editDateField.setText(viewModel.localDateToString())
-//        }
+        binding.editTitleField.addTextChangedListener {
+            if (!viewModel.isEntryTitleValid(it.toString())) {
+                binding.editTitleLayout.isErrorEnabled = true
+                binding.editTitleLayout.error = "This field cant be empty!"
+                //set button unclickable
+                binding.createNewTaskBtn.isClickable = false
+            } else {
+                binding.editTitleLayout.isErrorEnabled = false
+                binding.createNewTaskBtn.isClickable = true
+            }
+        }
+
+        /**
+         * call for start time picker
+         */
+        binding.startTimeField.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                showStartTimePicker()
+            }
+        }
+        binding.startTimeField.setOnClickListener {
+            showStartTimePicker()
+        }
+
+        /**
+         * call for end time picker
+         */
+        binding.endTimeField.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                showEndTimePicker()
+            }
+        }
+        binding.endTimeField.setOnClickListener {
+            showEndTimePicker()
+        }
 
     }
 
@@ -84,10 +115,10 @@ class CreateNewTaskFragment : Fragment() {
         // if viewModel.date is not empty set selection
         try {
             builder.setSelection(viewModel.fromLocalDateToMilliSeconds())
-        } catch (e: Exception) {}
+        } catch (e: Exception) {
+        }
 
         val datePicker = builder.build()
-
 
         //set result in view model
         datePicker.addOnPositiveButtonClickListener {
@@ -98,6 +129,90 @@ class CreateNewTaskFragment : Fragment() {
 
         datePicker.show(requireFragmentManager(), "tag")
 
+    }
+
+    private fun buildStartTimePicker(hours: Int, minutes: Int) {
+        val picker =
+            MaterialTimePicker.Builder()
+                .setTimeFormat(TimeFormat.CLOCK_12H)
+                .setHour(hours)
+                .setMinute(minutes)
+                .setTitleText("Select start time")
+                .build()
+
+        picker.addOnPositiveButtonClickListener {
+            setStartTime(picker.hour, picker.minute)
+        }
+
+        picker.show(requireFragmentManager(), "tag")
+    }
+
+    private fun buildEndTimePicker(hours: Int, minutes: Int) {
+        val picker =
+            MaterialTimePicker.Builder()
+                .setTimeFormat(TimeFormat.CLOCK_12H)
+                .setHour(hours)
+                .setMinute(minutes)
+                .setTitleText("Select end time")
+                .build()
+
+        picker.addOnPositiveButtonClickListener {
+            setEndTime(picker.hour, picker.minute)
+        }
+
+        picker.show(requireFragmentManager(), "tag")
+    }
+
+
+    /**
+     * show time pickers
+     * if edit filed is not empty set data to clock from there
+     */
+    private fun showStartTimePicker() {
+        if (!binding.startTimeField.text.isNullOrEmpty()) {
+            buildStartTimePicker(
+                binding.startTimeField.text.toString().split(":")[0].toInt(),
+                binding.startTimeField.text.toString().split(":")[1].toInt()
+            )
+        } else buildStartTimePicker(12, 0)
+    }
+
+    private fun showEndTimePicker() {
+        if (!binding.endTimeField.text.isNullOrEmpty()) {
+            buildEndTimePicker(
+                binding.endTimeField.text.toString().split(":")[0].toInt(),
+                binding.endTimeField.text.toString().split(":")[1].toInt()
+            )
+        } else buildEndTimePicker(12, 0)
+    }
+
+    /**
+     * setting time picker result to fields
+     */
+    @SuppressLint("SetTextI18n")
+    private fun setStartTime(hours: Int, minutes: Int) {
+        binding.startTimeField.setText(
+            //format string to time
+            "${String.format("%02d", hours)}:${
+                String.format(
+                    "%02d",
+                    minutes
+                )
+            }"
+        )
+
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setEndTime(hours: Int, minutes: Int) {
+        binding.endTimeField.setText(
+            "${String.format("%02d", hours)}:${
+                String.format(
+                    "%02d",
+                    minutes
+                )
+            }"
+        )
     }
 
     /**
