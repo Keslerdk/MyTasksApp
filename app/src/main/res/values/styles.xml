@@ -40,4 +40,16 @@
         <item name="fontFamily">@font/poppins_light</item>
         <item name="android:fontFamily">@font/poppins_light</item>
     </style>
+
+    //Chips
+
+    <style name="Widget.MyTaskApp.Chip.Choise" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="android:textColor" >@color/chip_text_color</item>
+        <item name="chipBackgroundColor">@color/chip_background</item>
+    </style>
+
+    <style name="Widget.MyTasksApp.Chip.Checked" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="android:textColor">@color/white</item>
+        <item name="chipBackgroundColor">@color/pink</item>
+    </style>
 </resources>

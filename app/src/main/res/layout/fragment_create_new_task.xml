@@ -284,30 +284,36 @@
                         android:id="@+id/sport_app_chip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        style="@style/Widget.MyTaskApp.Chip.Choise"
+                        android:checked="true"
                         android:text="Sport App" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/medical_app_chip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        style="@style/Widget.MyTaskApp.Chip.Choise"
                         android:text="Medical App" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/rent_app_chip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        style="@style/Widget.MyTaskApp.Chip.Choise"
                         android:text="Rent App" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/banking_app_chip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        style="@style/Widget.MyTaskApp.Chip.Choise"
                         android:text="Banking App" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/game_platform_app_chip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        style="@style/Widget.MyTaskApp.Chip.Choise"
                         android:text="Game Platform App" />
 
 

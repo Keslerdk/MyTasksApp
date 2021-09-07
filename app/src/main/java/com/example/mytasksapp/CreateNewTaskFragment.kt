@@ -117,15 +117,6 @@ class CreateNewTaskFragment : Fragment() {
             view.findNavController().navigateUp()
         }
 
-//        binding.chipGroup.setOnCheckedChangeListener { group, checkedId ->  }
-//        binding.chipGroup.
-
-        val selectedChipId = binding.chipGroup.checkedChipId
-        binding.bankingAppChip.setChipBackgroundColorResource(R.color.pink)
-//        val selectedChip = view.findViewById<View>(selectedChipId)
-//        selectedChip.setChipBackgroundColorResource(R.color.pink)
-//        selectedChip.setBackgroundColor(resources.getColor(R.color.pink))
-
     }
 
     private fun showDatePiker() {
