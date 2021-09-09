@@ -2,6 +2,7 @@ package com.example.mytasksapp
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -11,11 +12,11 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.mytasksapp.databinding.FragmentCreateNewTaskBinding
 import com.example.mytasksapp.model.NewTaskViewModel
 import com.example.mytasksapp.model.NewTaskViewModelFactory
-import com.google.android.material.chip.ChipGroup
+import com.google.android.material.chip.Chip
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -38,15 +39,13 @@ class CreateNewTaskFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCreateNewTaskBinding.inflate(inflater, container, false)
+        binding.fragment = this
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.calendarFab.setOnClickListener {
-            showDatePiker()
-        }
 
         binding.editDateField.setOnKeyListener { v, keyCode, _ -> handleKeyEvent(v, keyCode) }
 
@@ -57,24 +56,18 @@ class CreateNewTaskFragment : Fragment() {
             if (!viewModel.isEntryDateValid(it.toString())) {
                 binding.editDateLayout.isErrorEnabled = true
                 binding.editDateLayout.error = "ДД.ММ.ГГГГ"
-                //set button unclickable
-                binding.createNewTaskBtn.isClickable = false
             } else {
                 binding.editDateLayout.isErrorEnabled = false
                 viewModel.stringToLocalDate(it.toString())
-                binding.createNewTaskBtn.isClickable = true
             }
         }
 
         binding.editTitleField.addTextChangedListener {
             if (!viewModel.isEntryTitleValid(it.toString())) {
                 binding.editTitleLayout.isErrorEnabled = true
-                binding.editTitleLayout.error = "This field cant be empty!"
-                //set button unclickable
-                binding.createNewTaskBtn.isClickable = false
+                binding.editTitleLayout.error = "This field can't be empty!"
             } else {
                 binding.editTitleLayout.isErrorEnabled = false
-                binding.createNewTaskBtn.isClickable = true
             }
         }
 
@@ -102,24 +95,42 @@ class CreateNewTaskFragment : Fragment() {
             showEndTimePicker()
         }
 
-        /**
-         * add new task to database and navigate up
-         */
-        binding.createNewTaskBtn.setOnClickListener {
+        binding.chipGroup.setOnCheckedChangeListener { _, checkedId -> chooseCategory(checkedId) }
+    }
+
+    /**
+     * add new task to database and navigate up
+     */
+    fun createNewTask() {
+        //if everything is ok create new task
+        if (viewModel.isEntryDateValid(binding.editDateField.text.toString()) && viewModel.isEntryTitleValid(
+                binding.editTitleField.text.toString()
+            ) && viewModel.isCategoryValid()
+        ) {
             viewModel.addNewItem(
                 binding.editTitleField.text.toString(),
                 viewModel.localDateToString(),
                 binding.startTimeField.text.toString(),
                 binding.endTimeField.text.toString(),
                 binding.descriptionField.text.toString(),
-                "Sport App"
+                viewModel.category.value!!
             )
-            view.findNavController().navigateUp()
+            // then navigate up
+            findNavController().navigateUp()
+        } else {
+            // setting errors to layout
+            if (!viewModel.isEntryDateValid(binding.editDateField.text.toString())) {
+                binding.editDateLayout.isErrorEnabled = true
+                binding.editDateLayout.error = "ДД.ММ.ГГГГ"
+            }
+            if (!viewModel.isEntryTitleValid(binding.editTitleField.text.toString())) {
+                binding.editTitleLayout.isErrorEnabled = true
+                binding.editTitleLayout.error = "This field can't be empty!"
+            }
         }
-
     }
 
-    private fun showDatePiker() {
+    fun showDatePiker() {
         val constraintsBuilder =
             CalendarConstraints.Builder()
                 .setValidator(DateValidatorPointForward.now())
@@ -246,8 +257,22 @@ class CreateNewTaskFragment : Fragment() {
         return false
     }
 
+    private fun chooseCategory(choosedChipId: Int) {
+        val choosedChip: Chip? = view?.findViewById(choosedChipId)
+        viewModel.setCategory(choosedChip?.text.toString())
+    }
+
     companion object {
         private const val TAG = "CreateNewTaskFragment"
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // Hide keyboard.
+        val inputMethodManager = requireActivity().getSystemService(INPUT_METHOD_SERVICE) as
+                InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
+        _binding = null
     }
 
 }
