@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mytasksapp.databinding.FragmentCalendarBinding
+import com.example.mytasksapp.model.CalendarDayAdapter
 import com.example.mytasksapp.model.CalendarViewModel
 import com.example.mytasksapp.model.CalendarViewModelFactory
 
@@ -39,9 +40,16 @@ class CalendarFragment : Fragment() {
 
         }
 
-        viewModel.allTasks.observe(viewLifecycleOwner) {
-            binding.task.text = it[0].date
-        }
+        val list = mutableListOf<String>()
+        list.add("Mon")
+        list.add("Tue")
+        list.add("Wed")
+        list.add("Thus")
+        list.add("Fri")
+        list.add("Sat")
+        list.add("Sun")
+
+        binding.calendarWeekRecyclerView.adapter = CalendarDayAdapter(list)
     }
 
     fun navigateToNewTask() {
