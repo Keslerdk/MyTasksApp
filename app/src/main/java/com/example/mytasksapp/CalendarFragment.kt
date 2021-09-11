@@ -30,6 +30,7 @@ class CalendarFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentCalendarBinding.inflate(inflater, container, false)
+        binding.viewModel = viewModel
         return binding.root
     }
 
@@ -49,7 +50,8 @@ class CalendarFragment : Fragment() {
         list.add("Sat")
         list.add("Sun")
 
-        binding.calendarWeekRecyclerView.adapter = CalendarDayAdapter(list)
+//        viewModel.setDateList()
+        binding.calendarWeekRecyclerView.adapter = CalendarDayAdapter(viewModel.dateList)
     }
 
     fun navigateToNewTask() {

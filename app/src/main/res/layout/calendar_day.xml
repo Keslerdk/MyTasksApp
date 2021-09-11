@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -16,25 +17,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:text="Mon"
-            android:textColor="@color/calendar_day_color"
+            android:clickable="true"
+            android:focusable="true"
             android:fontFamily="@font/poppins_light"
+            android:textColor="@color/calendar_day_color"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:clickable="true"
-            android:focusable="true" />
+            tools:text="Mon" />
 
         <TextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="30"
-            android:textColor="@color/oxford_blue"
-            android:fontFamily="@font/poppins_light"
             android:layout_marginTop="5dp"
+            android:fontFamily="@font/poppins_light"
+            android:textColor="@color/oxford_blue"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/day" />
+            app:layout_constraintTop_toBottomOf="@+id/day"
+            tools:text="30" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
