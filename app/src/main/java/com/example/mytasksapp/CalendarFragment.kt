@@ -44,11 +44,12 @@ class CalendarFragment : Fragment() {
 
         }
 
-        binding.calendarWeekRecyclerView.adapter = CalendarDayAdapter(viewModel.dateList)
+        binding.calendarWeekRecyclerView.adapter = CalendarDayAdapter(viewModel.dateList, viewModel)
         binding.timeTableRecyclerView.adapter = TimeTableAdapter()
 
         viewModel.allTasks.observe(viewLifecycleOwner) {
             Log.d(Companion.TAG, "onViewCreated: ${it}")
+            viewModel.setRelevantTasks()
         }
     }
 

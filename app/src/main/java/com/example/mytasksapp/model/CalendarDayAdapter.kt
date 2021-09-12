@@ -1,6 +1,5 @@
 package com.example.mytasksapp.model
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -11,7 +10,10 @@ import org.threeten.bp.LocalDate
 import org.threeten.bp.format.TextStyle
 import java.util.*
 
-class CalendarDayAdapter(private val list: List<LocalDate>) :
+class CalendarDayAdapter(
+    private val list: List<LocalDate>,
+    private val viewModel: CalendarViewModel
+) :
     RecyclerView.Adapter<CalendarDayAdapter.CalendarDayViewHolder>() {
 
     var selectedItemId = 0
@@ -48,12 +50,15 @@ class CalendarDayAdapter(private val list: List<LocalDate>) :
 
         holder.bind(currentItem)
 
-        val textColor: Int = if (position==selectedItemId) R.color.pink else R.color.oxford_blue
+        val textColor: Int = if (position == selectedItemId) R.color.pink else R.color.oxford_blue
         holder.setColor(textColor)
 
         holder.itemView.setOnClickListener {
             lastSelectedId = selectedItemId
             selectedItemId = position
+
+            viewModel.setSelectedDay(list.get(selectedItemId))
+            viewModel.setRelevantTasks()
 
             notifyItemChanged(lastSelectedId)
             notifyItemChanged(selectedItemId)

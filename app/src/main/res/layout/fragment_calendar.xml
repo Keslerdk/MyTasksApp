@@ -114,7 +114,7 @@
             app:layout_constraintStart_toStartOf="parent"
             tools:listitem="@layout/time_table_item"
             android:padding="6dp"
-            listData="@{viewModel.allTasks}"
+            listData="@{viewModel.relevantTasks}"
             android:clipToPadding="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@+id/calendar_week_recycler_view" />
