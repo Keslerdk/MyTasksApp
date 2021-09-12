@@ -21,15 +21,14 @@ class CalendarViewModel(private val taskDao: TaskDao) : ViewModel() {
 
     init {
         _instanceDate.value = LocalDate.now(ZoneId.of("UTC"))
-//        Log.d(Companion.TAG, "init: ${instanceDate.value?.month}")
         setDateList()
+
     }
 
     fun setDateList() {
         _dateList.add(instanceDate.value!!)
         for (i in 1..7) {
             _dateList.add(instanceDate.value!!.plusDays(i.toLong()))
-            Log.d(TAG, "setDateList: ${dateList.get(i).dayOfMonth}")
         }
     }
 
