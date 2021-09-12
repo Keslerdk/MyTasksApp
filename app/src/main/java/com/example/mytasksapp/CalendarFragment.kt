@@ -1,7 +1,6 @@
 package com.example.mytasksapp
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,29 +29,36 @@ class CalendarFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentCalendarBinding.inflate(inflater, container, false)
+
         binding.viewModel = viewModel
         binding.lifecycleOwner= this
+        binding.calendarFragment = this
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.addNewTaskBtn.setOnClickListener {
-            navigateToNewTask()
 
-        }
-
+        // set adapters to recycler views
         binding.calendarWeekRecyclerView.adapter = CalendarDayAdapter(viewModel.dateList, viewModel)
         binding.timeTableRecyclerView.adapter = TimeTableAdapter()
 
+        // when tasks in  database change update relevant tasks
         viewModel.allTasks.observe(viewLifecycleOwner) {
-            Log.d(Companion.TAG, "onViewCreated: ${it}")
+            viewModel.setRelevantTasks()
+        }
+
+        //when selected date changes update relevant tasks
+        viewModel.selectedDate.observe(viewLifecycleOwner) {
             viewModel.setRelevantTasks()
         }
     }
 
+    /**
+     * navigate to next fragment
+     */
     fun navigateToNewTask() {
         findNavController().navigate(R.id.action_calendarFragment_to_createNewTaskFragment)
     }

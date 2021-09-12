@@ -4,20 +4,20 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.example.mytasksapp.data.Task
 import com.example.mytasksapp.data.TaskDao
-import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 import org.threeten.bp.ZoneId
 import org.threeten.bp.format.DateTimeFormatter
 
-class CalendarViewModel(private val taskDao: TaskDao) : ViewModel() {
+class CalendarViewModel(taskDao: TaskDao) : ViewModel() {
 
-    //    val daysList = mutableListOf<String>()
+    // list of dates to calendar recycler view
     private val _dateList = mutableListOf<LocalDate>()
     val dateList: List<LocalDate> = _dateList
 
     private var _instanceDate = MutableLiveData<LocalDate>()
     val instanceDate: LiveData<LocalDate> = _instanceDate
 
+    // all tasks from database
     val allTasks: LiveData<List<Task>> = taskDao.getTasks().asLiveData()
 
     private var _selectedDate = MutableLiveData<LocalDate>()
@@ -35,28 +35,45 @@ class CalendarViewModel(private val taskDao: TaskDao) : ViewModel() {
 
     }
 
-    fun setDateList() {
+    /**
+     * set next week dates in list
+     */
+    private fun setDateList() {
         _dateList.add(instanceDate.value!!)
         for (i in 1..7) {
             _dateList.add(instanceDate.value!!.plusDays(i.toLong()))
         }
     }
 
-    fun setSelectedDay (date: LocalDate) {
+    /**
+     * function to update selected day from CalendarDayAdapter
+     */
+    fun setSelectedDay(date: LocalDate) {
         _selectedDate.value = date
     }
 
+    /**
+     * filter all tasks to selected date
+     */
     fun setRelevantTasks() {
+        // temporary list
         val tempList = mutableListOf<Task>()
-        for (item in allTasks.value!!) {
-            if (localDateToString(selectedDate.value).equals(item.date)) {
-                tempList.add(item)
+
+        if (!allTasks.value.isNullOrEmpty()) {
+            for (item in allTasks.value!!) {
+                //if date in task is equals to selected date add to relevant list
+                if (localDateToString(selectedDate.value).equals(item.date)) {
+                    tempList.add(item)
+                }
             }
+            _relevantTasks.value = tempList
         }
-        _relevantTasks.value = tempList
     }
 
-    fun localDateToString(date: LocalDate?): String {
+    /**
+     *parsing local date format
+     */
+    private fun localDateToString(date: LocalDate?): String {
         return date!!.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
     }
 

@@ -77,6 +77,7 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             app:cornerRadius="50dp"
+            android:onClick="@{() -> calendarFragment.navigateToNewTask()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1"

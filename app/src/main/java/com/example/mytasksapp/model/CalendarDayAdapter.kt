@@ -16,8 +16,9 @@ class CalendarDayAdapter(
 ) :
     RecyclerView.Adapter<CalendarDayAdapter.CalendarDayViewHolder>() {
 
-    var selectedItemId = 0
-    var lastSelectedId = 0
+    //set selected ids to change colors
+    var selectedItemId = list.indexOf(viewModel.selectedDate.value!!)
+    var lastSelectedId = list.indexOf(viewModel.selectedDate.value!!)
 
     class CalendarDayViewHolder(private val binding: CalendarDayBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -57,9 +58,10 @@ class CalendarDayAdapter(
             lastSelectedId = selectedItemId
             selectedItemId = position
 
+            //change selected date in view model
             viewModel.setSelectedDay(list.get(selectedItemId))
-            viewModel.setRelevantTasks()
 
+            // updating recycler view
             notifyItemChanged(lastSelectedId)
             notifyItemChanged(selectedItemId)
         }
