@@ -28,6 +28,14 @@ class TimeTableAdapter() :
                 if (task.description.isNullOrEmpty()) binding.description.visibility = View.GONE
                 else binding.description.text = task.description
 
+                if (!task.startTime.isNullOrEmpty() and !task.endTime.isNullOrEmpty()) {
+                    binding.startTime.text = task.startTime
+                    binding.endTime.text = task.endTime
+                } else {
+                    binding.startTime.visibility = View.GONE;
+                    binding.endTime.visibility = View.GONE;
+                }
+
                 when (task.category) {
                     "Sport App" -> binding.taskLayout.setBackgroundResource(R.drawable.task_background_blue)
                     "Medical App" -> binding.taskLayout.setBackgroundResource(R.drawable.task_background_pink)

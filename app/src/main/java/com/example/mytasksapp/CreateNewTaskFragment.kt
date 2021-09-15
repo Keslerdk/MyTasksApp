@@ -17,11 +17,11 @@ import com.example.mytasksapp.databinding.FragmentCreateNewTaskBinding
 import com.example.mytasksapp.model.NewTaskViewModel
 import com.example.mytasksapp.model.NewTaskViewModelFactory
 import com.google.android.material.chip.Chip
-import com.google.android.material.datepicker.CalendarConstraints
-import com.google.android.material.datepicker.DateValidatorPointForward
-import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.datepicker.*
+import com.google.android.material.datepicker.CalendarConstraints.DateValidator
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import java.util.*
 
 
 class CreateNewTaskFragment : Fragment() {
@@ -131,14 +131,26 @@ class CreateNewTaskFragment : Fragment() {
     }
 
     fun showDatePiker() {
-        val constraintsBuilder =
-            CalendarConstraints.Builder()
-                .setValidator(DateValidatorPointForward.now())
+
+        //set validate week
+        val constraintsBuilderRange = CalendarConstraints.Builder()
+        val today = MaterialDatePicker.todayInUtcMilliseconds()
+
+        // constraint days
+        val dateValidatorMin = DateValidatorPointForward.from(today)
+        //7 days in milliseconds
+        val dateValidatorMax = DateValidatorPointBackward.before(today.plus(604800000))
+
+        val listValidators = ArrayList<DateValidator>()
+        listValidators.add(dateValidatorMin)
+        listValidators.add(dateValidatorMax)
+        val validators = CompositeDateValidator.allOf(listValidators)
+        constraintsBuilderRange.setValidator(validators)
 
         val builder = MaterialDatePicker.Builder.datePicker()
             .setTitleText("Select Date")
             .setTheme(R.style.Widget_MyTasksApp_MaterialDatePicker)
-            .setCalendarConstraints(constraintsBuilder.build())
+            .setCalendarConstraints(constraintsBuilderRange.build())
 
         // if viewModel.date is not empty set selection
         try {
@@ -211,7 +223,14 @@ class CreateNewTaskFragment : Fragment() {
                 binding.endTimeField.text.toString().split(":")[0].toInt(),
                 binding.endTimeField.text.toString().split(":")[1].toInt()
             )
-        } else buildEndTimePicker(12, 0)
+        } else if (!binding.startTimeField.text.isNullOrEmpty()) {
+            buildEndTimePicker(
+                binding.startTimeField.text.toString().split(":")[0].toInt().plus(1),
+                binding.startTimeField.text.toString().split(":")[1].toInt()
+            )
+        } else {
+            buildEndTimePicker(12, 0)
+        }
     }
 
     /**

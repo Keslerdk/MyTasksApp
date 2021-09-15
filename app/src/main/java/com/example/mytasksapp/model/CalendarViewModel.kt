@@ -66,6 +66,7 @@ class CalendarViewModel(taskDao: TaskDao) : ViewModel() {
                     tempList.add(item)
                 }
             }
+            tempList.sortBy { task: Task ->  task.startTime}
             _relevantTasks.value = tempList
         }
     }
