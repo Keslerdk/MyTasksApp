@@ -4,268 +4,287 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="fragment"
             type="com.example.mytasksapp.CreateNewTaskFragment" />
 
     </data>
 
-    <ScrollView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".CreateNewTaskFragment">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout"
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/background_yellow"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_percent=".4"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0">
+                android:layout_height="?attr/actionBarSize" />
 
-                <TextView
-                    android:id="@+id/textView3"
-                    style="@style/Widget.MyTaskApp.TextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="32dp"
-                    android:text="Create new task"
-                    android:textSize="24sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0" />
+        </com.google.android.material.appbar.AppBarLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/edit_title_layout"
-                    style="@style/Widget.MyTaskApp.EditText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:hint="Title"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView3"
-                    app:layout_constraintVertical_bias="0">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edit_title_field"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/edit_date_layout"
-                    style="@style/Widget.MyTaskApp.EditText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="32dp"
-                    android:hint="Date"
-                    app:helperText="ДД.ММ.ГГГГ"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/calendar_fab"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_title_layout">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edit_date_field"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="date" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/calendar_fab"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="16dp"
-                    android:onClick="@{(v) -> fragment.showDatePiker()}"
-                    android:backgroundTint="@color/green"
-                    android:src="@drawable/ic_calendar"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/edit_date_layout"
-                    app:tint="@null" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+                android:layout_height="wrap_content">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/start_time_layout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginEnd="16dp"
-                    android:hint="Start Time"
+                    android:background="@drawable/background_yellow"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/end_time_layout"
-                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent=".4"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/start_time_field"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/textView3"
+                        style="@style/Widget.MyTaskApp.TextView"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:inputType="none" />
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="32dp"
+                        android:text="Create new task"
+                        android:textSize="24sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/end_time_layout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:hint="End Time"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/start_time_layout"
-                    app:layout_constraintTop_toTopOf="@+id/start_time_layout"
-                    app:layout_constraintVertical_bias="0">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/end_time_field"
-                        android:layout_width="match_parent"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/edit_title_layout"
+                        style="@style/Widget.MyTaskApp.EditText"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:inputType="none" />
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:hint="Title"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView3"
+                        app:layout_constraintVertical_bias="0">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/description_layout"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_title_field"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/edit_date_layout"
+                        style="@style/Widget.MyTaskApp.EditText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="32dp"
+                        android:hint="Date"
+                        app:helperText="ДД.ММ.ГГГГ"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/calendar_fab"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/edit_title_layout">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_date_field"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="date" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/calendar_fab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="16dp"
+                        android:backgroundTint="@color/green"
+                        android:onClick="@{(v) -> fragment.showDatePiker()}"
+                        android:src="@drawable/ic_calendar"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/edit_date_layout"
+                        app:tint="@null" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:hint="Description"
+                    android:layout_height="match_parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/start_time_layout">
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/description_field"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/start_time_layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginEnd="16dp"
+                        android:hint="Start Time"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/end_time_layout"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/start_time_field"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="none" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/end_time_layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:hint="End Time"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/start_time_layout"
+                        app:layout_constraintTop_toTopOf="@+id/start_time_layout"
+                        app:layout_constraintVertical_bias="0">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/end_time_field"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="none" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/description_layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:hint="Description"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/start_time_layout">
 
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="18dp"
-                    android:layout_marginEnd="16dp"
-                    android:text="Category"
-                    android:textSize="18dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/description_layout"
-                    app:layout_constraintVertical_bias="0" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/description_field"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/chip_group"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textView4"
-                    app:selectionRequired="true"
-                    app:singleSelection="true">
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/sport_app_chip"
-                        style="@style/Widget.MyTaskApp.Chip.Choise"
+                    <TextView
+                        android:id="@+id/textView4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sport App" />
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="18dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="Category"
+                        android:textSize="18dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/description_layout"
+                        app:layout_constraintVertical_bias="0" />
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/medical_app_chip"
-                        style="@style/Widget.MyTaskApp.Chip.Choise"
-                        android:layout_width="wrap_content"
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chip_group"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Medical App" />
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textView4"
+                        app:selectionRequired="true"
+                        app:singleSelection="true">
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/rent_app_chip"
-                        style="@style/Widget.MyTaskApp.Chip.Choise"
-                        android:layout_width="wrap_content"
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/sport_app_chip"
+                            style="@style/Widget.MyTaskApp.Chip.Choise"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sport App" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/medical_app_chip"
+                            style="@style/Widget.MyTaskApp.Chip.Choise"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Medical App" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/rent_app_chip"
+                            style="@style/Widget.MyTaskApp.Chip.Choise"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Rent App" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/banking_app_chip"
+                            style="@style/Widget.MyTaskApp.Chip.Choise"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Banking App" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/game_platform_app_chip"
+                            style="@style/Widget.MyTaskApp.Chip.Choise"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Game Platform App" />
+
+
+                    </com.google.android.material.chip.ChipGroup>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/create_new_task_btn"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Rent App" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/banking_app_chip"
-                        style="@style/Widget.MyTaskApp.Chip.Choise"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Banking App" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/game_platform_app_chip"
-                        style="@style/Widget.MyTaskApp.Chip.Choise"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Game Platform App" />
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="20dp"
+                        android:backgroundTint="@color/blue"
+                        android:onClick="@{() -> fragment.createNewTask()}"
+                        android:text="Create new task"
+                        android:textColor="@color/white"
+                        app:cornerRadius="50dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/chip_group" />
 
 
-                </com.google.android.material.chip.ChipGroup>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/create_new_task_btn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="20dp"
-                    android:backgroundTint="@color/blue"
-                    android:text="Create new task"
-                    android:textColor="@color/white"
-                    android:onClick="@{() -> fragment.createNewTask()}"
-                    app:cornerRadius="50dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/chip_group" />
-
-
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
 
 
-    </ScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

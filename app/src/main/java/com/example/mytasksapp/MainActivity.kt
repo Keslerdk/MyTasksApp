@@ -3,6 +3,7 @@ package com.example.mytasksapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 
@@ -25,5 +26,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return super.onSupportNavigateUp() || navController.navigateUp()
+    }
+
+    override fun onBackPressed() {
+//        super.onBackPressed()
+        navController.navigateUp()
+//        getActivity().getSupport+-+-FragmentManager().popBackStack();
+//        navController.popBackStack()
     }
 }

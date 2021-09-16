@@ -6,7 +6,9 @@ import android.view.ActionMode.Callback
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.example.mytasksapp.data.Task
 import com.example.mytasksapp.databinding.FragmentCalendarBinding
 import com.example.mytasksapp.model.CalendarDayAdapter
@@ -65,9 +67,13 @@ class CalendarFragment : Fragment() {
             if (myActMode != null) {
                 return@setOnLongClickListener false;
             }
-            myActMode = activity?.startActionMode(ActionModeCallback());
+//            myActMode = activity?.startActionMode(ActionModeCallback());
+            binding.topAppBar.startActionMode(ActionModeCallback())
             return@setOnLongClickListener true
         }
+
+        val navHostFragment = NavHostFragment.findNavController(this);
+        NavigationUI.setupWithNavController(binding.topAppBar, navHostFragment)
     }
 
     /**

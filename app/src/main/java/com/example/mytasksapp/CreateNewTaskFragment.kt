@@ -12,7 +12,9 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.example.mytasksapp.databinding.FragmentCreateNewTaskBinding
 import com.example.mytasksapp.model.NewTaskViewModel
 import com.example.mytasksapp.model.NewTaskViewModelFactory
@@ -96,6 +98,9 @@ class CreateNewTaskFragment : Fragment() {
         }
 
         binding.chipGroup.setOnCheckedChangeListener { _, checkedId -> chooseCategory(checkedId) }
+
+        val navHostFragment = NavHostFragment.findNavController(this);
+        NavigationUI.setupWithNavController(binding.toolbar, navHostFragment)
     }
 
     /**
@@ -293,5 +298,6 @@ class CreateNewTaskFragment : Fragment() {
         inputMethodManager.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
         _binding = null
     }
+
 
 }
