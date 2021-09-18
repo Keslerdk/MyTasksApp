@@ -51,4 +51,15 @@
 <!--        <item name="textAppearanceBody2"></item>-->
     </style>
 
+    <style name="MyActionModeStyle" parent="@style/Widget.AppCompat.ActionMode">
+        <item name="background">@color/oxford_blue</item>
+        <!--        <item name="android:actionModeBackground">@color/oxford_blue</item>-->
+        <!--        <item name="android:textColor">@color/white</item>-->
+        <item name="titleTextStyle">@style/MyTitleStyle</item>
+    </style>
+
+    <style name="MyTitleStyle" parent="TextAppearance.AppCompat.Widget.ActionMode.Title">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
 </resources>

@@ -14,7 +14,17 @@
         <!-- Customize your theme here. -->
 
         <item name="windowActionModeOverlay">true</item>
+        <item name="actionModeStyle">@style/MyActionModeStyle</item>
+        <item name="actionModeCloseDrawable">@drawable/ic_arrow_back</item>
+<!--        <item name="android:actionModeBackground">@color/oxford_blue</item>-->
+        <!--        <item name="actionMenuTextColor">@color/white</item>-->
+        <item name="android:actionOverflowButtonStyle">@style/MyActionButtonOverflow</item>
     </style>
-    
-    
+
+    <style name="MyActionButtonOverflow" parent="android:style/Widget.Holo.ActionButton.Overflow">
+        <item name="android:tint">@color/white</item>
+    </style>
+
+
+
 </resources>
