@@ -12,7 +12,8 @@ import java.util.*
 
 class CalendarDayAdapter(
     private val list: List<LocalDate>,
-    private val viewModel: CalendarViewModel
+    private val viewModel: CalendarViewModel,
+    private val onItemClicked: () -> Unit
 ) :
     RecyclerView.Adapter<CalendarDayAdapter.CalendarDayViewHolder>() {
 
@@ -64,6 +65,8 @@ class CalendarDayAdapter(
             // updating recycler view
             notifyItemChanged(lastSelectedId)
             notifyItemChanged(selectedItemId)
+
+            onItemClicked()
         }
     }
 

@@ -2,8 +2,8 @@ package com.example.mytasksapp
 
 import android.os.Bundle
 import android.view.*
-import android.view.ActionMode.Callback
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment
@@ -15,6 +15,7 @@ import com.example.mytasksapp.model.CalendarDayAdapter
 import com.example.mytasksapp.model.CalendarViewModel
 import com.example.mytasksapp.model.CalendarViewModelFactory
 import com.example.mytasksapp.model.TimeTableAdapter
+
 
 class CalendarFragment : Fragment() {
 
@@ -31,6 +32,7 @@ class CalendarFragment : Fragment() {
     }
 
     var myActMode: ActionMode? = null
+    var adapter: TimeTableAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,8 +51,26 @@ class CalendarFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // set adapters to recycler views
-        binding.calendarWeekRecyclerView.adapter = CalendarDayAdapter(viewModel.dateList, viewModel)
-        binding.timeTableRecyclerView.adapter = TimeTableAdapter()
+        binding.calendarWeekRecyclerView.adapter = CalendarDayAdapter(viewModel.dateList, viewModel
+        ) {
+            ActionModeCallback().onDestroyActionMode(myActMode)
+        }
+
+        adapter = TimeTableAdapter()
+
+        binding.timeTableRecyclerView.adapter = adapter
+        adapter!!.onItemClicked = {
+            if (myActMode != null) {
+                toggleSelection(it, adapter!!);
+            }
+        }
+        adapter!!.onLongClicked = {
+            if (myActMode == null) {
+                myActMode = binding.topAppBar.startActionMode(ActionModeCallback())
+            }
+
+            toggleSelection(it, adapter!!)
+        }
 
         // when tasks in  database change update relevant tasks
         viewModel.allTasks.observe(viewLifecycleOwner) {
@@ -62,15 +82,15 @@ class CalendarFragment : Fragment() {
             viewModel.setRelevantTasks()
         }
 
-        binding.date.isLongClickable = true
-        binding.date.setOnLongClickListener{
-            if (myActMode != null) {
-                return@setOnLongClickListener false;
-            }
-//            myActMode = activity?.startActionMode(ActionModeCallback());
-            binding.topAppBar.startActionMode(ActionModeCallback())
-            return@setOnLongClickListener true
-        }
+//        binding.date.isLongClickable = true
+//        binding.date.setOnLongClickListener {
+//            if (myActMode != null) {
+//                return@setOnLongClickListener false;
+//            }
+////            myActMode = activity?.startActionMode(ActionModeCallback());
+//            binding.topAppBar.startActionMode(ActionModeCallback())
+//            return@setOnLongClickListener true
+//        }
 
         val navHostFragment = NavHostFragment.findNavController(this);
         NavigationUI.setupWithNavController(binding.topAppBar, navHostFragment)
@@ -87,19 +107,16 @@ class CalendarFragment : Fragment() {
         private const val TAG = "CalendarFragment"
     }
 
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        when (item.itemId) {
-//            R.id.action_delete -> Toast.makeText(this.context, "Refreshing...", Toast.LENGTH_SHORT)
-//                .show()
-//            else -> return true
-//        }
-//        return false
-//    }
-
-
-//    val myActionMode = ActionMode.Callback2 {
-//
-//    }
+    private fun toggleSelection(position: Int, adapter: TimeTableAdapter) {
+        adapter.toggleSelection(position)
+        val count: Int = adapter.getSelectedItemCount()
+        if (count == 0) {
+            myActMode?.finish()
+        } else {
+            myActMode?.setTitle(resources.getString(R.string.action_mode_title,  count) )
+            myActMode?.invalidate()
+        }
+    }
 
     inner class ActionModeCallback() : ActionMode.Callback {
         override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
@@ -121,8 +138,11 @@ class CalendarFragment : Fragment() {
             return false
         }
 
+
         override fun onDestroyActionMode(mode: ActionMode?) {
-            TODO("Not yet implemented")
+            mode?.finish()
+            adapter!!.clearSelection()
+            myActMode = null
         }
 
     }
