@@ -5,18 +5,18 @@
         android:id="@+id/action_delete"
         android:icon="@drawable/ic_delete"
         android:title="Delete"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
-    <item
-        android:id="@+id/action_settings3"
-        android:title="Share"
-        android:icon="@drawable/ic_share"
-        app:showAsAction="ifRoom" />
+<!--    <item-->
+<!--        android:id="@+id/action_settings3"-->
+<!--        android:title="Share"-->
+<!--        android:icon="@drawable/ic_share"-->
+<!--        app:showAsAction="ifRoom" />-->
 
     <item
         android:id="@+id/action_settings4"
         android:title="To Do"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="collapseActionView" />
     <item
         android:id="@+id/action_setting_6"
         android:title="In process"/>

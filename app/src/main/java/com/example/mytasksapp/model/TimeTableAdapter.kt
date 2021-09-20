@@ -20,7 +20,7 @@ class TimeTableAdapter(
         Diffcallback
     ) {
 
-    private val selectedItems = SparseBooleanArray()
+    val selectedItems = SparseBooleanArray()
 
     class TimeTableViewHolder(
         private var binding: TimeTableItemBinding,

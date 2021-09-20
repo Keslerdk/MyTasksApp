@@ -1,8 +1,10 @@
 package com.example.mytasksapp
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.Toast
+import androidx.core.util.forEach
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment
@@ -48,7 +50,8 @@ class CalendarFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // set adapters to recycler views
-        binding.calendarWeekRecyclerView.adapter = CalendarDayAdapter(viewModel.dateList, viewModel
+        binding.calendarWeekRecyclerView.adapter = CalendarDayAdapter(
+            viewModel.dateList, viewModel
         ) {
             // finish action mode when another day choose
             ActionModeCallback().onDestroyActionMode(myActMode)
@@ -101,6 +104,7 @@ class CalendarFragment : Fragment() {
      * navigate to next fragment
      */
     fun navigateToNewTask() {
+        ActionModeCallback().onDestroyActionMode(myActMode)
         findNavController().navigate(R.id.action_calendarFragment_to_createNewTaskFragment)
     }
 
@@ -117,7 +121,7 @@ class CalendarFragment : Fragment() {
         if (count == 0) {
             myActMode?.finish()
         } else {
-            myActMode?.title = (resources.getString(R.string.action_mode_title,  count) )
+            myActMode?.title = (resources.getString(R.string.action_mode_title, count))
             myActMode?.invalidate()
         }
     }
@@ -138,8 +142,20 @@ class CalendarFragment : Fragment() {
 
         override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
             when (item?.itemId) {
-                R.id.action_delete -> Toast.makeText(context, "Refreshing...", Toast.LENGTH_SHORT)
-                    .show()
+                R.id.action_delete -> {
+                    val selectedItems = adapter?.selectedItems
+                    selectedItems?.forEach { item, flag ->
+                        if (flag) {
+                            Log.d(
+                                TAG,
+                                "onActionItemClicked: ${viewModel.relevantTasks.value?.get(item)}"
+                            )
+                            viewModel.deleteTask(viewModel.relevantTasks.value?.get(item)!!)
+                            onDestroyActionMode(myActMode)
+                        }
+//                        Log.d(TAG, "onActionItemClicked: ${item}, ${flag}")
+                    }
+                }
                 else -> return true
             }
             return false

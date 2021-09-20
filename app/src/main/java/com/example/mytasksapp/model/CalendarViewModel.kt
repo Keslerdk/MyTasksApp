@@ -4,11 +4,12 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.example.mytasksapp.data.Task
 import com.example.mytasksapp.data.TaskDao
+import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 import org.threeten.bp.ZoneId
 import org.threeten.bp.format.DateTimeFormatter
 
-class CalendarViewModel(taskDao: TaskDao) : ViewModel() {
+class CalendarViewModel(private val taskDao: TaskDao) : ViewModel() {
 
     // list of dates to calendar recycler view
     private val _dateList = mutableListOf<LocalDate>()
@@ -78,6 +79,14 @@ class CalendarViewModel(taskDao: TaskDao) : ViewModel() {
         return date!!.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
     }
 
+    /**
+     * delete selected items
+     */
+    fun deleteTask(task: Task) {
+       viewModelScope.launch {
+           taskDao.delete(task)
+       }
+    }
     companion object {
         private const val TAG = "CalendarViewModel"
     }
