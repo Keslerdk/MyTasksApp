@@ -3,13 +3,11 @@ package com.example.mytasksapp
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
-import com.example.mytasksapp.data.Task
 import com.example.mytasksapp.databinding.FragmentCalendarBinding
 import com.example.mytasksapp.model.CalendarDayAdapter
 import com.example.mytasksapp.model.CalendarViewModel
@@ -22,7 +20,6 @@ class CalendarFragment : Fragment() {
     private var _binding: FragmentCalendarBinding? = null
     private val binding get() = _binding!!
 
-    private val listToDelete = mutableListOf<Task>()
 
     private val viewModel: CalendarViewModel by activityViewModels {
         CalendarViewModelFactory(
@@ -53,15 +50,19 @@ class CalendarFragment : Fragment() {
         // set adapters to recycler views
         binding.calendarWeekRecyclerView.adapter = CalendarDayAdapter(viewModel.dateList, viewModel
         ) {
+            // finish action mode when another day choose
             ActionModeCallback().onDestroyActionMode(myActMode)
         }
 
+        // adapter for recycler view with tasks
         adapter = TimeTableAdapter()
-
+        // set adapter
         binding.timeTableRecyclerView.adapter = adapter
+
+        // set click actions
         adapter!!.onItemClicked = {
             if (myActMode != null) {
-                toggleSelection(it, adapter!!);
+                toggleSelection(it, adapter!!)
             }
         }
         adapter!!.onLongClicked = {
@@ -92,7 +93,7 @@ class CalendarFragment : Fragment() {
 //            return@setOnLongClickListener true
 //        }
 
-        val navHostFragment = NavHostFragment.findNavController(this);
+        val navHostFragment = NavHostFragment.findNavController(this)
         NavigationUI.setupWithNavController(binding.topAppBar, navHostFragment)
     }
 
@@ -107,18 +108,24 @@ class CalendarFragment : Fragment() {
         private const val TAG = "CalendarFragment"
     }
 
+    /**
+     * modified toggle from adapter for contextual action bar
+     */
     private fun toggleSelection(position: Int, adapter: TimeTableAdapter) {
         adapter.toggleSelection(position)
         val count: Int = adapter.getSelectedItemCount()
         if (count == 0) {
             myActMode?.finish()
         } else {
-            myActMode?.setTitle(resources.getString(R.string.action_mode_title,  count) )
+            myActMode?.title = (resources.getString(R.string.action_mode_title,  count) )
             myActMode?.invalidate()
         }
     }
 
-    inner class ActionModeCallback() : ActionMode.Callback {
+    /**
+     * action mode for contextual action bar
+     */
+    inner class ActionModeCallback : ActionMode.Callback {
         override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
             mode?.menuInflater?.inflate(R.menu.menu, menu)
             mode?.title = "Select Options"

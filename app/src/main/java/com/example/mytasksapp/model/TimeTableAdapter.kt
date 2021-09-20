@@ -20,7 +20,7 @@ class TimeTableAdapter(
         Diffcallback
     ) {
 
-    val selectedItems = SparseBooleanArray()
+    private val selectedItems = SparseBooleanArray()
 
     class TimeTableViewHolder(
         private var binding: TimeTableItemBinding,
@@ -31,15 +31,15 @@ class TimeTableAdapter(
 
             binding.titleProject.text = task.title
 
-            if (task.description.isNullOrEmpty()) binding.description.visibility = View.GONE
+            if (task.description.isEmpty()) binding.description.visibility = View.GONE
             else binding.description.text = task.description
 
-            if (!task.startTime.isNullOrEmpty() and !task.endTime.isNullOrEmpty()) {
+            if (task.startTime.isNotEmpty() and task.endTime.isNotEmpty()) {
                 binding.startTime.text = task.startTime
                 binding.endTime.text = task.endTime
             } else {
-                binding.startTime.visibility = View.GONE;
-                binding.endTime.visibility = View.GONE;
+                binding.startTime.visibility = View.GONE
+                binding.endTime.visibility = View.GONE
             }
 
             when (task.category) {
@@ -55,8 +55,8 @@ class TimeTableAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): TimeTableAdapter.TimeTableViewHolder {
-        return TimeTableAdapter.TimeTableViewHolder(
+    ): TimeTableViewHolder {
+        return TimeTableViewHolder(
             TimeTableItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -71,22 +71,13 @@ class TimeTableAdapter(
         holder.bind(currentItem)
 
         holder.itemView.setOnClickListener {
-//                toggleSelection(position)
-//            onItemClicked?.invoke(getSelectedItemCount())
             onItemClicked?.invoke(position)
         }
-        holder.itemView.setActivated(selectedItems.get(position));
+        holder.itemView.isActivated = selectedItems.get(position)
 
         holder.itemView.setOnLongClickListener {
 
-//            if (onLongClicked(position)) {
-//                toggleSelection(position)
-//                return@setOnLongClickListener true
-//            }
-//            else return@setOnLongClickListener false
-
             onLongClicked?.invoke(position)
-//            toggleSelection(position)
             return@setOnLongClickListener true
         }
     }
@@ -97,19 +88,19 @@ class TimeTableAdapter(
         }
 
         override fun areContentsTheSame(oldItem: Task, newItem: Task): Boolean {
-            return oldItem.equals(newItem)
+            return oldItem == newItem
         }
 
     }
 
-    /**
-     * Indicates if the item at position position is selected
-     * @param position Position of the item to check
-     * @return true if the item is selected, false otherwise
-     */
-    fun isSelected(position: Int): Boolean {
-        return getSelectedItems()!!.contains(position)
-    }
+//    /**
+//     * Indicates if the item at position position is selected
+//     * @param position Position of the item to check
+//     * @return true if the item is selected, false otherwise
+//     */
+//    fun isSelected(position: Int): Boolean {
+//        return getSelectedItems()!!.contains(position)
+//    }
 
     fun getSelectedItemCount(): Int {
         return selectedItems.size()
@@ -119,7 +110,7 @@ class TimeTableAdapter(
      * Indicates the list of selected items
      * @return List of selected items ids
      */
-    fun getSelectedItems(): List<Int>? {
+    private fun getSelectedItems(): List<Int> {
         val items: MutableList<Int> = ArrayList(selectedItems.size())
         for (i in 0 until selectedItems.size()) {
             items.add(selectedItems.keyAt(i))
@@ -134,10 +125,10 @@ class TimeTableAdapter(
     fun toggleSelection(position: Int) {
         if (selectedItems[position, false]) {
             selectedItems.delete(position)
-            Log.d(TAG, "toggleSelection: unselected")
+//            Log.d(TAG, "toggleSelection: unselected")
         } else {
             selectedItems.put(position, true)
-            Log.d(TAG, "toggleSelection: selected")
+//            Log.d(TAG, "toggleSelection: selected")
         }
         notifyItemChanged(position)
     }
@@ -148,7 +139,7 @@ class TimeTableAdapter(
     fun clearSelection() {
         val selection = getSelectedItems()
         selectedItems.clear()
-        for (i in selection!!) {
+        for (i in selection) {
             notifyItemChanged(i)
         }
     }
