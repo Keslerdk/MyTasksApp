@@ -26,5 +26,8 @@ data class Task (
     val description: String,
     @NotNull
     @ColumnInfo(name = "category")
-    val category: String
+    val category: String,
+    @NotNull
+    @ColumnInfo(name = "status")
+    val status: String
 )

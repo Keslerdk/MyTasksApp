@@ -87,6 +87,16 @@ class CalendarViewModel(private val taskDao: TaskDao) : ViewModel() {
            taskDao.delete(task)
        }
     }
+
+    private fun updateTask(status: String, id: Int) {
+        viewModelScope.launch {
+            taskDao.update(status, id)
+        }
+    }
+
+    fun updateItem(status: String, id: Int) {
+        updateTask(status, id)
+    }
     companion object {
         private const val TAG = "CalendarViewModel"
     }

@@ -7,20 +7,27 @@
         android:title="Delete"
         app:showAsAction="always" />
 
-<!--    <item-->
-<!--        android:id="@+id/action_settings3"-->
-<!--        android:title="Share"-->
-<!--        android:icon="@drawable/ic_share"-->
-<!--        app:showAsAction="ifRoom" />-->
+    <!--    <item-->
+    <!--        android:id="@+id/action_settings3"-->
+    <!--        android:title="Share"-->
+    <!--        android:icon="@drawable/ic_share"-->
+    <!--        app:showAsAction="ifRoom" />-->
 
-    <item
-        android:id="@+id/action_settings4"
-        android:title="To Do"
-        app:showAsAction="collapseActionView" />
-    <item
-        android:id="@+id/action_setting_6"
-        android:title="In process"/>
-    <item
-        android:id="@+id/action_setting_7"
-        android:title="Done"/>
+    <group>
+        <item
+            android:id="@+id/action_to_do"
+            android:title="To Do"
+            android:orderInCategory="1"
+            app:showAsAction="never"/>
+        <item
+            android:id="@+id/action_in_process"
+            android:title="In process"
+            android:orderInCategory="2"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/action_done"
+            android:orderInCategory="3"
+            android:title="Done"
+            app:showAsAction="never" />
+    </group>
 </menu>

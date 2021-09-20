@@ -9,8 +9,11 @@ interface TaskDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(task: Task)
 
-    @Update
-    suspend fun update(task: Task)
+//    @Update
+//    suspend fun update(task: Task)
+
+    @Query("update task set status =:status where id = :id")
+    suspend fun update(status: String, id:Int)
 
     @Delete
     suspend fun delete(task: Task)

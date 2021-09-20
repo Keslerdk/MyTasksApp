@@ -3,13 +3,13 @@ package com.example.mytasksapp
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.core.util.forEach
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.example.mytasksapp.data.Task
 import com.example.mytasksapp.databinding.FragmentCalendarBinding
 import com.example.mytasksapp.model.CalendarDayAdapter
 import com.example.mytasksapp.model.CalendarViewModel
@@ -79,22 +79,13 @@ class CalendarFragment : Fragment() {
         // when tasks in  database change update relevant tasks
         viewModel.allTasks.observe(viewLifecycleOwner) {
             viewModel.setRelevantTasks()
+            Log.d(TAG, "onViewCreated: ${viewModel.relevantTasks.value}")
         }
 
         //when selected date changes update relevant tasks
         viewModel.selectedDate.observe(viewLifecycleOwner) {
             viewModel.setRelevantTasks()
         }
-
-//        binding.date.isLongClickable = true
-//        binding.date.setOnLongClickListener {
-//            if (myActMode != null) {
-//                return@setOnLongClickListener false;
-//            }
-////            myActMode = activity?.startActionMode(ActionModeCallback());
-//            binding.topAppBar.startActionMode(ActionModeCallback())
-//            return@setOnLongClickListener true
-//        }
 
         val navHostFragment = NavHostFragment.findNavController(this)
         NavigationUI.setupWithNavController(binding.topAppBar, navHostFragment)
@@ -143,22 +134,41 @@ class CalendarFragment : Fragment() {
         override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
             when (item?.itemId) {
                 R.id.action_delete -> {
-                    val selectedItems = adapter?.selectedItems
-                    selectedItems?.forEach { item, flag ->
-                        if (flag) {
-                            Log.d(
-                                TAG,
-                                "onActionItemClicked: ${viewModel.relevantTasks.value?.get(item)}"
-                            )
-                            viewModel.deleteTask(viewModel.relevantTasks.value?.get(item)!!)
-                            onDestroyActionMode(myActMode)
-                        }
-//                        Log.d(TAG, "onActionItemClicked: ${item}, ${flag}")
+                    forEach {
+                        viewModel.deleteTask(it)
+                    }
+                }
+                R.id.action_in_process -> {
+                    forEach {
+                        viewModel.updateItem("In process", it.id)
+                    }
+                }
+                R.id.action_to_do -> {
+                    forEach {
+                        viewModel.updateItem("To Do", it.id)
+                    }
+                }
+                R.id.action_done -> {
+                    forEach {
+                        viewModel.updateItem("Done", it.id)
                     }
                 }
                 else -> return true
             }
             return false
+        }
+
+        private fun forEach(action: (Task) -> Unit) {
+            val selectedItems = adapter?.selectedItems
+//            Log.d(TAG, "forEach: ${selectedItems}")
+            selectedItems?.forEach { item, flag ->
+                if (flag) {
+//                    Log.d(TAG, "forEach: ${viewModel.relevantTasks.value?.get(item)!!}")
+                    action(viewModel.relevantTasks.value?.get(item)!!)
+
+                }
+            }
+            onDestroyActionMode(myActMode)
         }
 
 

@@ -91,7 +91,8 @@ class NewTaskViewModel(private val taskDao: TaskDao) : ViewModel() {
             date = date, startTime = startTime,
             endTime = endTime,
             description = description,
-            category = category
+            category = category,
+            status = "To Do"
         )
     }
 
