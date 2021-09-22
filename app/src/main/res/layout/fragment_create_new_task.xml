@@ -57,7 +57,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="32dp"
-                        android:text="Create new task"
+                        android:text="@string/create_new_task"
                         android:textSize="24sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -74,7 +74,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
-                        android:hint="Title"
+                        android:hint="@string/title"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0"
@@ -97,7 +97,7 @@
                         android:layout_marginTop="24dp"
                         android:layout_marginEnd="8dp"
                         android:layout_marginBottom="32dp"
-                        android:hint="Date"
+                        android:hint="@string/date"
                         app:helperText="ДД.ММ.ГГГГ"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/calendar_fab"
@@ -141,7 +141,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="32dp"
                         android:layout_marginEnd="16dp"
-                        android:hint="Start Time"
+                        android:hint="@string/start_time"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/end_time_layout"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -162,7 +162,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
-                        android:hint="End Time"
+                        android:hint="@string/end_time"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -185,7 +185,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
-                        android:hint="Description"
+                        android:hint="@string/description"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/start_time_layout">
@@ -203,8 +203,8 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="18dp"
                         android:layout_marginEnd="16dp"
-                        android:text="Category"
-                        android:textSize="18dp"
+                        android:text="@string/category"
+                        android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0"
@@ -230,35 +230,35 @@
                             style="@style/Widget.MyTaskApp.Chip.Choise"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Sport App" />
+                            android:text="@string/sport_app" />
 
                         <com.google.android.material.chip.Chip
                             android:id="@+id/medical_app_chip"
                             style="@style/Widget.MyTaskApp.Chip.Choise"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Medical App" />
+                            android:text="@string/medical_app" />
 
                         <com.google.android.material.chip.Chip
                             android:id="@+id/rent_app_chip"
                             style="@style/Widget.MyTaskApp.Chip.Choise"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Rent App" />
+                            android:text="@string/rent_app" />
 
                         <com.google.android.material.chip.Chip
                             android:id="@+id/banking_app_chip"
                             style="@style/Widget.MyTaskApp.Chip.Choise"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Banking App" />
+                            android:text="@string/banking_app" />
 
                         <com.google.android.material.chip.Chip
                             android:id="@+id/game_platform_app_chip"
                             style="@style/Widget.MyTaskApp.Chip.Choise"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Game Platform App" />
+                            android:text="@string/game_platform_app" />
 
 
                     </com.google.android.material.chip.ChipGroup>
@@ -272,7 +272,7 @@
                         android:layout_marginBottom="20dp"
                         android:backgroundTint="@color/blue"
                         android:onClick="@{() -> fragment.createNewTask()}"
-                        android:text="Create new task"
+                        android:text="@string/create_new_task"
                         android:textColor="@color/white"
                         app:cornerRadius="50dp"
                         app:layout_constraintBottom_toBottomOf="parent"

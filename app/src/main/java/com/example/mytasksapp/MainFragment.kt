@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.dinuscxj.progressbar.CircleProgressBar
 import com.example.mytasksapp.databinding.FragmentMainBinding
+import com.example.mytasksapp.model.ActiveProjectsAdapter
 
 class MainFragment : Fragment() {
 
@@ -33,6 +35,9 @@ class MainFragment : Fragment() {
             navigateToCalendar()
         }
 
+        val nameList = listOf("Sport App", "Medical App", "Rent App", "Banking App")
+        binding.activeProjectsRecyclerView.adapter = ActiveProjectsAdapter(nameList)
+
     }
 
     fun navigateToCalendar() {
@@ -43,4 +48,15 @@ class MainFragment : Fragment() {
     companion object {
         private const val TAG = "MainFragment"
     }
+
+
 }
+
+class MyProgressFormatter : CircleProgressBar.ProgressFormatter {
+    override fun format(p0: Int, p1: Int): CharSequence {
+        return String.format("%d%%", (p0.toFloat() / p1.toFloat() * 100).toInt())
+    }
+
+}
+
+

@@ -55,11 +55,10 @@
             <TextView
                 android:id="@+id/title_project"
                 style="@style/Widget.MyTaskApp.TextView"
-                android:textColor="@color/action_mode_text_color"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:text="Project research"
+                android:textColor="@color/action_mode_text_color"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -67,23 +66,24 @@
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0" />
+                app:layout_constraintVertical_bias="0"
+                tools:text="Project research" />
 
             <TextView
                 android:id="@+id/description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Description bla bla bla "
-                android:textSize="16sp"
+                android:layout_marginBottom="16dp"
                 android:textColor="@color/action_mode_text_color"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0"
-                android:layout_marginBottom="16dp"
                 app:layout_constraintStart_toStartOf="@+id/title_project"
                 app:layout_constraintTop_toBottomOf="@+id/title_project"
-                app:layout_constraintVertical_bias="0" />
+                app:layout_constraintVertical_bias="0"
+                tools:text="Description bla bla bla " />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

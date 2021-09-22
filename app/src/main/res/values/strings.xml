@@ -2,4 +2,20 @@
     <string name="app_name">MyTasksApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="action_mode_title">%1$d selected</string>
+    <string name="today">Today</string>
+    <string name="productive_day_philip">Productive day, Philip</string>
+    <string name="add_new_task">Add new task</string>
+    <string name="create_new_task">Create new task</string>
+    <string name="title">Title</string>
+    <string name="date">Date</string>
+    <string name="start_time">Start Time</string>
+    <string name="end_time">End Time</string>
+    <string name="description">Description</string>
+    <string name="category">Category</string>
+    <string name="sport_app">Sport App</string>
+    <string name="medical_app">Medical App</string>
+    <string name="rent_app">Rent App</string>
+    <string name="banking_app">Banking App</string>
+    <string name="game_platform_app">Game Platform App</string>
+    <string name="calendar_fragment">Calendar</string>
 </resources>

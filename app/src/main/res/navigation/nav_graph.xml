@@ -17,8 +17,8 @@
     <fragment
         android:id="@+id/calendarFragment"
         android:name="com.example.mytasksapp.CalendarFragment"
-        android:label="fragment_calendar"
-        tools:layout="@layout/fragment_calendar" >
+        android:label="@string/calendar_fragment"
+        tools:layout="@layout/fragment_calendar">
         <action
             android:id="@+id/action_calendarFragment_to_createNewTaskFragment"
             app:destination="@id/createNewTaskFragment" />
@@ -26,6 +26,6 @@
     <fragment
         android:id="@+id/createNewTaskFragment"
         android:name="com.example.mytasksapp.CreateNewTaskFragment"
-        android:label="fragment_create_new_task"
+        android:label="@string/create_new_task"
         tools:layout="@layout/fragment_create_new_task" />
 </navigation>

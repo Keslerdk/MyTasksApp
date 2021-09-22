@@ -65,4 +65,7 @@ dependencies {
     //Local Date
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
 
+    //cicle process bar
+    compile 'com.dinuscxj:circleprogressbar:1.3.6'
+
 }

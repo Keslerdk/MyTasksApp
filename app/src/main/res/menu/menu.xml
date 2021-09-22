@@ -7,12 +7,6 @@
         android:title="Delete"
         app:showAsAction="always" />
 
-    <!--    <item-->
-    <!--        android:id="@+id/action_settings3"-->
-    <!--        android:title="Share"-->
-    <!--        android:icon="@drawable/ic_share"-->
-    <!--        app:showAsAction="ifRoom" />-->
-
     <group>
         <item
             android:id="@+id/action_to_do"

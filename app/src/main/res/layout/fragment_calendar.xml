@@ -17,7 +17,8 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white_background">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -51,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:text="Today"
+                    android:text="@string/today"
                     android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -66,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="5dp"
-                    android:text="Productive day, Philip"
+                    android:text="@string/productive_day_philip"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -97,7 +98,7 @@
                     android:backgroundTint="@color/green"
                     android:fontFamily="@font/poppins_light"
                     android:onClick="@{() -> calendarFragment.navigateToNewTask()}"
-                    android:text="Add new task"
+                    android:text="@string/add_new_task"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     app:cornerRadius="50dp"
