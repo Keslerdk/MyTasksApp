@@ -79,6 +79,10 @@ class CalendarViewModel(private val taskDao: TaskDao) : ViewModel() {
         return date!!.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
     }
 
+    fun stringToLocalDate(text: String): LocalDate {
+        return LocalDate.parse(text, DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+    }
+
     /**
      * delete selected items
      */

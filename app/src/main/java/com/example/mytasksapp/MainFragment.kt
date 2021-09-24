@@ -6,15 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.dinuscxj.progressbar.CircleProgressBar
 import com.example.mytasksapp.databinding.FragmentMainBinding
-import com.example.mytasksapp.model.ActiveProjectsAdapter
+import com.example.mytasksapp.model.*
 
 class MainFragment : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel: MainViewModel by activityViewModels {
+        MainViewModelFactory((activity?.application as MyTaskApplication).database.taskDao())
+    }
 
 
     override fun onCreateView(
@@ -23,6 +28,7 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View?{
         _binding = FragmentMainBinding.inflate(inflater, container, false)
+        binding.viewModel = viewModel
         return binding.root
     }
 
@@ -37,6 +43,11 @@ class MainFragment : Fragment() {
 
         val nameList = listOf("Sport App", "Medical App", "Rent App", "Banking App")
         binding.activeProjectsRecyclerView.adapter = ActiveProjectsAdapter(nameList)
+
+        viewModel.allTasks.observe(viewLifecycleOwner) {
+//            Log.d(TAG, "onViewCreated: ${it}")
+            viewModel.countStatus()
+        }
 
     }
 

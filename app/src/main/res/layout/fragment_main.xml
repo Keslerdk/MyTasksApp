@@ -8,6 +8,9 @@
         <variable
             name="mainFragment"
             type="com.example.mytasksapp.MainFragment" />
+        <variable
+            name="viewModel"
+            type="com.example.mytasksapp.model.MainViewModel" />
 
     </data>
 
@@ -81,7 +84,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="To Do"
+                    android:text="@string/to_do"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0"
@@ -93,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/poppins_light"
-                    android:text="5 tasks now • 1 started"
+                    android:text="@{String.format(@string/num_of_tasks, viewModel.toDoNum)}"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/todo_image_view"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -123,8 +126,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="To Do"
-
+                    android:text="@string/in_process"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0"
@@ -136,7 +138,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/poppins_light"
-                    android:text="5 tasks now • 1 started"
+                    android:text="@{String.format(@string/num_of_tasks, viewModel.inProcessNum)}"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/in_process_image_view"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -165,7 +167,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="To Do"
+                    android:text="@string/done"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0"
@@ -177,7 +179,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/poppins_light"
-                    android:text="5 tasks now • 1 started"
+                    android:text="@{String.format(@string/num_of_tasks, viewModel.doneNum)}"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/done_image_view"
                     app:layout_constraintEnd_toEndOf="parent"

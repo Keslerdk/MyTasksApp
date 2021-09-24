@@ -80,12 +80,19 @@ class CalendarFragment : Fragment() {
         viewModel.allTasks.observe(viewLifecycleOwner) {
             viewModel.setRelevantTasks()
             Log.d(TAG, "onViewCreated: ${viewModel.relevantTasks.value}")
+
+            viewModel.allTasks.value!!.forEach {
+                if (viewModel.stringToLocalDate(it.date) < viewModel.instanceDate.value) {
+                    viewModel.deleteTask(it)
+                }
+            }
         }
 
         //when selected date changes update relevant tasks
         viewModel.selectedDate.observe(viewLifecycleOwner) {
             viewModel.setRelevantTasks()
         }
+
 
         val navHostFragment = NavHostFragment.findNavController(this)
         NavigationUI.setupWithNavController(binding.topAppBar, navHostFragment)

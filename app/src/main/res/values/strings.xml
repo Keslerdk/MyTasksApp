@@ -18,4 +18,8 @@
     <string name="banking_app">Banking App</string>
     <string name="game_platform_app">Game Platform App</string>
     <string name="calendar_fragment">Calendar</string>
+    <string name="num_of_tasks">%1$d tasks now</string>
+    <string name="to_do">To Do</string>
+    <string name="in_process">In Process</string>
+    <string name="done">Done</string>
 </resources>
