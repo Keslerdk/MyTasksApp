@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.dinuscxj.progressbar.CircleProgressBar
+import com.example.mytasksapp.databinding.ActiveProjectsItemBinding
 import com.example.mytasksapp.databinding.FragmentMainBinding
 import com.example.mytasksapp.model.*
 
@@ -29,24 +30,27 @@ class MainFragment : Fragment() {
     ): View?{
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.lifecycleOwner = viewLifecycleOwner
+
+        val binding2: ActiveProjectsItemBinding
 
         binding.fab.setOnClickListener {
             navigateToCalendar()
         }
 
         val nameList = listOf("Sport App", "Medical App", "Rent App", "Banking App")
-        binding.activeProjectsRecyclerView.adapter = ActiveProjectsAdapter(nameList)
+        binding.activeProjectsRecyclerView.adapter = ActiveProjectsAdapter(nameList, viewModel, viewLifecycleOwner)
 
         viewModel.allTasks.observe(viewLifecycleOwner) {
 //            Log.d(TAG, "onViewCreated: ${it}")
             viewModel.countStatus()
+            viewModel.setPer()
         }
 
     }
