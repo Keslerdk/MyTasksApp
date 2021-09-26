@@ -22,4 +22,7 @@
     <string name="to_do">To Do</string>
     <string name="in_process">In Process</string>
     <string name="done">Done</string>
+    <string name="my_tasks">My tasks</string>
+    <string name="navigate_to_calendar">Navigate to calendar</string>
+    <string name="active_projects">Active Projects</string>
 </resources>

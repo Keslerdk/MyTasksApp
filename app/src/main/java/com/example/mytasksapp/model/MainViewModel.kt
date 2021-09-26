@@ -1,6 +1,5 @@
 package com.example.mytasksapp.model
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.example.mytasksapp.data.Task
 import com.example.mytasksapp.data.TaskDao
@@ -9,29 +8,35 @@ class MainViewModel(taskDao: TaskDao) : ViewModel() {
 
     val allTasks: LiveData<List<Task>> = taskDao.getTasks().asLiveData()
 
-    private var _sportAppPer = MutableLiveData<Int>(0)
+    //percents of done tasks
+    private var _sportAppPer = MutableLiveData(0)
     val sportAppPer: LiveData<Int> = _sportAppPer
 
-    private var _medicalAppPer = MutableLiveData<Int>(0)
+    private var _medicalAppPer = MutableLiveData(0)
     val medicalAppPer: LiveData<Int> = _medicalAppPer
 
-    private var _rentAppPer = MutableLiveData<Int>(0)
+    private var _rentAppPer = MutableLiveData(0)
     val rentAppPer: LiveData<Int> = _rentAppPer
 
-    private var _bankingAppPer = MutableLiveData<Int>(0)
+    private var _bankingAppPer = MutableLiveData(0)
     val bankingAppPer: LiveData<Int> = _bankingAppPer
 
-    private var _toDoNum = MutableLiveData<Int>(0)
+    //number of tasks in different status
+    private var _toDoNum = MutableLiveData(0)
     val toDoNum: LiveData<Int> = _toDoNum
 
-    private var _inProcessNum = MutableLiveData<Int>(0)
+    private var _inProcessNum = MutableLiveData(0)
     val inProcessNum: LiveData<Int> = _inProcessNum
 
-    private var _doneNum = MutableLiveData<Int>(0)
+    private var _doneNum = MutableLiveData(0)
     val doneNum: LiveData<Int> = _doneNum
 
+    /**
+     *set new number
+     */
     fun countStatus() {
         if (!allTasks.value.isNullOrEmpty()) {
+            //temple vars
             var toDo = 0
             var inProcess = 0
             var done = 0
@@ -49,8 +54,12 @@ class MainViewModel(taskDao: TaskDao) : ViewModel() {
         }
     }
 
+    /**
+     * set new percents
+     */
     fun setPer() {
         if (!allTasks.value.isNullOrEmpty()) {
+            //auxiliary vars to count percents
             var numSportApp = 0
             var doneSportApp = 0
             var numMedicalApp = 0
@@ -88,7 +97,6 @@ class MainViewModel(taskDao: TaskDao) : ViewModel() {
                 if (numRentApp != 0) ((doneRentApp.toFloat() / numRentApp) * 100).toInt() else 0
             _bankingAppPer.value =
                 if (numBankingApp != 0) ((doneBankingApp.toFloat() / numBankingApp) * 100).toInt() else 0
-            Log.d(TAG, "setPer rentAppPer: ${rentAppPer.value}")
         }
     }
 

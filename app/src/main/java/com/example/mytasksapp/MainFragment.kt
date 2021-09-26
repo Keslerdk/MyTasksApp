@@ -27,28 +27,24 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View?{
+    ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.mainFragment = this
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        val binding2: ActiveProjectsItemBinding
-
-        binding.fab.setOnClickListener {
-            navigateToCalendar()
-        }
-
+        //list of app names
         val nameList = listOf("Sport App", "Medical App", "Rent App", "Banking App")
-        binding.activeProjectsRecyclerView.adapter = ActiveProjectsAdapter(nameList, viewModel, viewLifecycleOwner)
+        binding.activeProjectsRecyclerView.adapter =
+            ActiveProjectsAdapter(nameList, viewModel, viewLifecycleOwner)
 
+        // when all tasks change update status and percents
         viewModel.allTasks.observe(viewLifecycleOwner) {
-//            Log.d(TAG, "onViewCreated: ${it}")
             viewModel.countStatus()
             viewModel.setPer()
         }
@@ -56,7 +52,6 @@ class MainFragment : Fragment() {
     }
 
     fun navigateToCalendar() {
-        Log.d(TAG, "navigateToCalendar: clicked!")
         findNavController().navigate(R.id.action_mainFragment_to_calendarFragment)
     }
 

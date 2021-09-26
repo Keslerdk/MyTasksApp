@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="32dp"
-                    android:text="My tasks"
+                    android:text="@string/my_tasks"
                     android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -52,6 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="16dp"
+                    android:onClick="@{() -> mainFragment.navigateToCalendar()}"
                     android:src="@drawable/ic_calendar"
                     app:backgroundTint="@color/green"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -60,7 +61,8 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0"
-                    app:tint="@null" />
+                    app:tint="@null"
+                    android:contentDescription="@string/navigate_to_calendar" />
 
                 <ImageView
                     android:id="@+id/todo_image_view"
@@ -69,6 +71,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
                     android:background="@drawable/background_todo"
+                    android:contentDescription="@null"
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_todo"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -118,7 +121,8 @@
                     app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/todo_image_view"
-                    app:layout_constraintVertical_bias="0" />
+                    app:layout_constraintVertical_bias="0"
+                    android:contentDescription="@null" />
 
                 <TextView
                     android:id="@+id/in_process_text_view"
@@ -159,7 +163,8 @@
                     app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/in_process_image_view"
-                    app:layout_constraintVertical_bias="0" />
+                    app:layout_constraintVertical_bias="0"
+                    android:contentDescription="@null" />
 
                 <TextView
                     android:id="@+id/done_text_view"
@@ -193,7 +198,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="48dp"
-                    android:text="Active Projects"
+                    android:text="@string/active_projects"
                     android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -239,7 +244,7 @@
                     android:layout_height="?attr/actionBarSize"
                     android:fitsSystemWindows="true"
                     app:layout_collapseMode="pin"
-                    app:title="Philip Maccoy"></androidx.appcompat.widget.Toolbar>
+                    app:title="Philip Maccoy" />
 
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>

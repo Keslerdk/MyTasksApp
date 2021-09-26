@@ -1,11 +1,9 @@
 package com.example.mytasksapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupActionBarWithNavController
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,9 +17,6 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
-//        setupActionBarWithNavController(navController)
-
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -29,9 +24,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-//        super.onBackPressed()
         navController.navigateUp()
-//        getActivity().getSupport+-+-FragmentManager().popBackStack();
-//        navController.popBackStack()
     }
 }

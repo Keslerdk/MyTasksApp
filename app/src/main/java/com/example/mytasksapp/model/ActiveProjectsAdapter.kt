@@ -11,6 +11,7 @@ import com.example.mytasksapp.databinding.ActiveProjectsItemBinding
 class ActiveProjectsAdapter(
     private val nameList: List<String>,
     private val viewModel: MainViewModel,
+    //lifecycler to set observer
     private val lifecycleOwner: LifecycleOwner
 ) :
     RecyclerView.Adapter<ActiveProjectsAdapter.ActiveProjectsViewHolder>() {
@@ -23,6 +24,7 @@ class ActiveProjectsAdapter(
         fun bind(name: String) {
             binding.lineProgress.setProgressFormatter(MyProgressFormatter())
 
+            //set different styles and observer to recycler view items
             when (name) {
                 binding.lineProgress.resources.getString(R.string.sport_app) -> {
                     binding.name.text =
@@ -66,6 +68,7 @@ class ActiveProjectsAdapter(
             LayoutInflater.from(parent.context), parent,
             false
         )
+        // set lifecycler
         binding.lifecycleOwner = lifecycleOwner
         return ActiveProjectsViewHolder(binding, viewModel)
     }

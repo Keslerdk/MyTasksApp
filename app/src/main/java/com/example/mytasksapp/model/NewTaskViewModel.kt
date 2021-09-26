@@ -13,7 +13,6 @@ import org.threeten.bp.format.DateTimeFormatter
 import java.text.SimpleDateFormat
 import java.util.*
 
-enum class Category {SPORT_APP, MEDICAL_APP, RENT_APP, BANKING_APP, GAMING_PLATFORM_APP}
 
 class NewTaskViewModel(private val taskDao: TaskDao) : ViewModel() {
 
@@ -22,9 +21,6 @@ class NewTaskViewModel(private val taskDao: TaskDao) : ViewModel() {
 
     private var _category= MutableLiveData<String>()
     val category: LiveData<String> = _category
-
-    private var _clickableBtn = MutableLiveData<Boolean>()
-    val clickableBtn: LiveData<Boolean> = _clickableBtn
 
     lateinit var task: Task
 
